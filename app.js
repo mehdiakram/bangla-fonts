@@ -27,7 +27,8 @@ const state = {
   currentPage:     1,
   totalPages:      1,
   searchQuery:     '',
-  activeFilter:    'all',
+  activeFormat:    'all',
+  activeEncoding:  'all',
   sortOrder:       'name-asc',
   previewText:     DEFAULT_PREVIEW,
   fontSize:        28,
@@ -189,15 +190,22 @@ function animateCounter(el, target) {
    ══════════════════════════════════════════════════════════════ */
 function filterFonts(fonts) {
   const q = state.searchQuery.toLowerCase().trim();
-  const f = state.activeFilter;
+  const formatFilter = state.activeFormat;
+  const encodingFilter = state.activeEncoding;
 
   return fonts.filter(font => {
-    // Format filter
-    if (f !== 'all' && font.format !== f) return false;
+    // Format filter (WOFF includes both WOFF and WOFF2)
+    if (formatFilter !== 'all') {
+      if (formatFilter === 'WOFF' && !font.format.startsWith('WOFF')) return false;
+      if (formatFilter !== 'WOFF' && font.format !== formatFilter) return false;
+    }
+    
+    // Encoding filter
+    if (encodingFilter !== 'all' && font.encoding !== encodingFilter) return false;
 
     // Search
     if (q) {
-      const haystack = [font.name, font.id, font.category, font.format]
+      const haystack = [font.name, font.id, font.category, font.format, font.encoding]
         .join(' ').toLowerCase();
       return haystack.includes(q);
     }
@@ -291,6 +299,7 @@ function createFontCard(font) {
         <div class="card-name" title="${escapeHtml(font.name)}">${escapeHtml(font.name)}</div>
         <div class="card-badges">
           <span class="badge badge-format">${font.format}</span>
+          <span class="badge badge-encoding" style="background-color: var(--primary-color); color: white;">${font.encoding || 'Unicode'}</span>
           <span class="badge badge-size">${font.size}</span>
         </div>
       </div>
@@ -888,15 +897,28 @@ function initEventListeners() {
   dom.heroSearchClear.addEventListener('click',   () => onSearch(''));
 
   /* ── Filter tabs ──────────────────────────── */
-  $$('.filter-tab').forEach(tab => {
+  $$('.encoding-tab').forEach(tab => {
     tab.addEventListener('click', () => {
-      $$('.filter-tab').forEach(t => {
+      $$('.encoding-tab').forEach(t => {
         t.classList.remove('active');
         t.setAttribute('aria-selected', 'false');
       });
       tab.classList.add('active');
       tab.setAttribute('aria-selected', 'true');
-      state.activeFilter = tab.dataset.filter;
+      state.activeEncoding = tab.dataset.encoding;
+      applySearchFilterSort();
+    });
+  });
+
+  $$('.format-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      $$('.format-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      state.activeFormat = tab.dataset.format;
       applySearchFilterSort();
     });
   });
@@ -918,12 +940,20 @@ function initEventListeners() {
   /* ── Clear filters button (empty state) ──── */
   dom.clearFiltersBtn.addEventListener('click', () => {
     state.searchQuery  = '';
-    state.activeFilter = 'all';
+    state.activeEncoding = 'all';
+    state.activeFormat = 'all';
     syncSearchInputs('');
-    $$('.filter-tab').forEach((t, i) => {
+    
+    $$('.encoding-tab').forEach((t, i) => {
       t.classList.toggle('active', i === 0);
       t.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
     });
+    
+    $$('.format-tab').forEach((t, i) => {
+      t.classList.toggle('active', i === 0);
+      t.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    });
+    
     applySearchFilterSort();
   });
 

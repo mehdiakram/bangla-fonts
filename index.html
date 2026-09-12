@@ -169,10 +169,18 @@
       <section class="toolbar" aria-label="ফিল্টার ও সর্ট">
         <div class="toolbar-top">
           <!-- Filter tabs -->
-          <div class="filter-tabs" role="tablist" aria-label="ফরম্যাট ফিল্টার">
-            <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">সব</button>
-            <button class="filter-tab" data-filter="TTF" role="tab" aria-selected="false">TTF</button>
-            <button class="filter-tab" data-filter="OTF" role="tab" aria-selected="false">OTF</button>
+          <div class="filter-group-wrap" style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <div class="filter-tabs" role="tablist" aria-label="এনকোডিং ফিল্টার">
+              <button class="filter-tab encoding-tab active" data-encoding="all" role="tab" aria-selected="true">সব এনকোডিং</button>
+              <button class="filter-tab encoding-tab" data-encoding="Unicode" role="tab" aria-selected="false">Unicode</button>
+              <button class="filter-tab encoding-tab" data-encoding="ANSI" role="tab" aria-selected="false">ANSI</button>
+            </div>
+            <div class="filter-tabs" role="tablist" aria-label="ফরম্যাট ফিল্টার">
+              <button class="filter-tab format-tab active" data-format="all" role="tab" aria-selected="true">সব ফরম্যাট</button>
+              <button class="filter-tab format-tab" data-format="TTF" role="tab" aria-selected="false">TTF</button>
+              <button class="filter-tab format-tab" data-format="OTF" role="tab" aria-selected="false">OTF</button>
+              <button class="filter-tab format-tab" data-format="WOFF" role="tab" aria-selected="false">WOFF/2</button>
+            </div>
           </div>
 
           <div class="toolbar-right">
