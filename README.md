@@ -1,7 +1,7 @@
 # বাংলা ফন্ট লাইব্রেরি | Bangla Font Library
 
 A **complete, production-ready, fully static** Bangla font library website.  
-Browse, preview, and download **700+ Bangla fonts** — works directly on [GitHub Pages](https://pages.github.com/).
+Browse, preview, and download **1400+ Bangla fonts** — Unicode ও ANSI উভয় ধরনের ফন্ট সমর্থিত।
 
 ---
 
@@ -13,20 +13,21 @@ Browse, preview, and download **700+ Bangla fonts** — works directly on [GitHu
 
 ## ✨ Features
 
-- **700+ Bangla fonts** — TTF and OTF
-- **Live preview** — type custom Bengali text and see all fonts update instantly
-- **Lazy font loading** — only loads fonts as they scroll into view (great for 500+ fonts)
-- **Search** — instant client-side search by name, ID, category, format
-- **Filter** — by format (All, TTF, OTF)
-- **Sort** — A–Z, Z–A, file size
-- **Dark / Light mode** — with `localStorage` persistence
-- **Select & bulk download** — select multiple fonts → download as a single ZIP file
-- **Individual downloads** — download any font with one click
-- **Font preview modal** — large preview with custom text and size control
-- **Pagination** — 24 fonts per page, scales to thousands
-- **Fully responsive** — mobile, tablet, desktop
-- **No backend required** — pure HTML + CSS + vanilla JavaScript
-- **GitHub Pages compatible** — all relative paths, `.nojekyll` included
+- **1400+ Bangla fonts** — TTF, OTF, WOFF, WOFF2
+- **Unicode ও ANSI filter** — এনকোডিং অনুযায়ী ফন্ট আলাদা করুন
+- **Format filter** — TTF, OTF, WOFF, WOFF2 আলাদাভাবে ফিল্টার করুন
+- **Live preview** — নিজের বাংলা টেক্সট লিখে সব ফন্ট তাৎক্ষণিক প্রিভিউ করুন
+- **Lazy font loading** — শুধুমাত্র দেখা যাওয়া ফন্টই লোড হয় (১৫০০+ ফন্টের জন্য পারফরম্যান্ট)
+- **Search** — নাম, ক্যাটাগরি, ফরম্যাট ও এনকোডিং দিয়ে সার্চ
+- **Sort** — A–Z, Z–A, ফাইল সাইজ
+- **Dark / Light mode** — `localStorage` এ সংরক্ষিত
+- **Select & bulk download** — একাধিক ফন্ট সিলেক্ট করে একটি ZIP ফাইল হিসেবে ডাউনলোড
+- **Individual download** — যেকোনো ফন্ট এক ক্লিকে ডাউনলোড
+- **Font preview modal** — বড় প্রিভিউ, কাস্টম টেক্সট ও সাইজ নিয়ন্ত্রণ
+- **Pagination** — প্রতি পেজে ২৪টি ফন্ট, হাজারো ফন্টের জন্য স্কেলযোগ্য
+- **Fully responsive** — মোবাইল, ট্যাবলেট, ডেস্কটপ
+- **No backend required** — pure HTML + CSS + Vanilla JavaScript
+- **GitHub Pages compatible** — সম্পূর্ণ স্ট্যাটিক, কোনো সার্ভার দরকার নেই
 
 ---
 
@@ -46,84 +47,71 @@ bangla-fonts/
 │   ├── logo.svg
 │   └── favicon.svg
 │
-└── fonts/                  ← সব ফন্ট এখানে
-    ├── FontName.ttf        ← সরাসরি ফন্ট ফাইল
-    ├── font-folder/        ← গ্রুপ করা ফন্ট ফোল্ডার
-    │   └── FontName.ttf
-    └── ...
+└── fonts/                   ← সব ফন্ট এখানে
+    ├── FontName.ttf         ← সরাসরি ফন্ট ফাইল
+    ├── new_fonts/           ← নতুন যোগ করা ফন্ট
+    ├── google_fonts/        ← Google Fonts থেকে আনা
+    └── font-folder/         ← গ্রুপ করা ফন্ট ফোল্ডার
+        └── FontName.ttf
 ```
 
 ---
 
 ## 🚀 Deploy to GitHub Pages
 
-1. **Fork or upload** this repository to GitHub.
-2. Go to **Settings → Pages**.
-3. Set **Source** to `main` branch, `/ (root)`.
-4. Your site will be live at `https://<username>.github.io/<repo-name>/`.
+1. **Fork or upload** এই repository টি GitHub-এ।
+2. **Settings → Pages** এ যান।
+3. **Source** → `main` branch, `/ (root)` সিলেক্ট করুন।
+4. আপনার সাইট লাইভ হবে: `https://<username>.github.io/<repo-name>/`
 
-> The `.nojekyll` file prevents GitHub Pages from running Jekyll preprocessing, which would break font file paths with underscores.
+> `.nojekyll` ফাইলটি GitHub Pages-কে Jekyll preprocessing থেকে বিরত রাখে, নাহলে আন্ডারস্কোর-যুক্ত ফন্ট পাথ ভেঙে যেত।
 
 ---
 
 ## ➕ How to Add a New Font
 
-### Step 1 — Add the font file
+### Step 1 — ফন্ট ফাইল যোগ করুন
 
-Place your font file inside the `fonts/` directory:
+ফন্ট ফাইলটি `fonts/` ডিরেক্টরিতে রাখুন:
 
 ```
-fonts/FontName.ttf                    ← directly in fonts/
-fonts/font-folder/FontName.ttf        ← inside a subfolder of fonts/
+fonts/FontName.ttf                    ← সরাসরি fonts/ এ
+fonts/font-folder/FontName.ttf        ← fonts/ এর সাবফোল্ডারে
 ```
 
-### Step 2 — Update `fonts.json`
+### Step 2 — `fonts.json` আপডেট করুন
 
-Open `fonts.json` and add an entry:
+`fonts.json` খুলে একটি entry যোগ করুন:
 
 ```json
 {
   "id": "my-font-name",
   "name": "My Font Name",
-  "file": "FontName.ttf",
+  "file": "fonts/FontName.ttf",
   "format": "TTF",
   "size": "120 KB",
   "sizeBytes": 122880,
   "category": "Bangla",
   "license": "OFL",
+  "encoding": "Unicode",
   "folder": null
 }
 ```
 
-For a font inside a subfolder:
+| Field       | Description                                            |
+|-------------|--------------------------------------------------------|
+| `id`        | Unique slug (lowercase, hyphens only)                  |
+| `name`      | ফন্ট কার্ডে দেখানো নাম                               |
+| `file`      | Root থেকে ফন্ট ফাইলের relative path                   |
+| `format`    | `"TTF"`, `"OTF"`, `"WOFF"` বা `"WOFF2"`               |
+| `size`      | Human-readable ফাইল সাইজ (যেমন `"256 KB"`)            |
+| `sizeBytes` | Sorting-এর জন্য byte count                             |
+| `category`  | Category label (যেমন `"Bangla"`)                       |
+| `license`   | License (যেমন `"OFL"`, `"Unknown"`)                    |
+| `encoding`  | `"Unicode"` বা `"ANSI"` — এনকোডিং ধরন                |
+| `folder`    | Parent folder নাম, অথবা root-level হলে `null`          |
 
-```json
-{
-  "id": "my-font-name",
-  "name": "My Font Name",
-  "file": "fonts/my-folder/FontName.ttf",
-  "format": "TTF",
-  "size": "120 KB",
-  "sizeBytes": 122880,
-  "category": "Bangla",
-  "license": "OFL",
-  "folder": "fonts/my-folder"
-}
-```
-
-| Field       | Description                                     |
-|-------------|-------------------------------------------------|
-| `id`        | Unique slug (lowercase, hyphens only)           |
-| `name`      | Display name shown on the font card             |
-| `file`      | Relative path to the font file from root        |
-| `format`    | `"TTF"` or `"OTF"`                              |
-| `size`      | Human-readable file size (e.g. `"256 KB"`)      |
-| `sizeBytes` | Raw byte count for sorting                      |
-| `category`  | Category label (e.g. `"Bangla"`)                |
-| `license`   | License name (e.g. `"OFL"`, `"Unknown"`)        |
-| `folder`    | Parent folder name, or `null` for root-level    |
-
-### Step 3 — Push and deploy
+### Step 3 — Push করুন
 
 ```bash
 git add .
@@ -131,107 +119,102 @@ git commit -m "Add new font: My Font Name"
 git push
 ```
 
-GitHub Pages will rebuild automatically.
-
 ---
 
-## 🔄 How to Regenerate `fonts.json` Automatically
-
-If you have **PowerShell** available, run:
+## 🔄 fonts.json স্বয়ংক্রিয়ভাবে তৈরি করুন (PowerShell)
 
 ```powershell
-$fontsDir = "."
-$fonts = @()
+$rootDir  = "D:\path\to\bangla-fonts"
+$fontsDir = "$rootDir\fonts"
+$fonts    = @()
+$seenIds  = @{}
 
 function Format-Size($bytes) {
-    if ($bytes -lt 1024) { return "$bytes B" }
-    elseif ($bytes -lt 1MB) { return "{0:N1} KB" -f ($bytes/1KB) }
-    else { return "{0:N2} MB" -f ($bytes/1MB) }
+    if ($bytes -lt 1024)   { return "$bytes B" }
+    elseif ($bytes -lt 1MB){ return "{0:N1} KB" -f ($bytes/1KB) }
+    else                   { return "{0:N2} MB" -f ($bytes/1MB) }
 }
 
-function Make-Id($name) {
-    return ($name.ToLower() -replace '[^a-z0-9]+', '-').Trim('-')
+function Make-UniqueId($base, $seen) {
+    $id = ($base.ToLower() -replace '[^a-z0-9]+', '-').Trim('-')
+    if (-not $seen.ContainsKey($id)) { $seen[$id] = 1; return $id }
+    $c = $seen[$id]; $seen[$id]++
+    return "$id-$c"
 }
 
-Get-ChildItem -Path $fontsDir -File | Where-Object { $_.Extension -match '\.(ttf|otf)$' } | Sort-Object Name | ForEach-Object {
+function Detect-Encoding($name, $folder) {
+    $lowerName = $name.ToLower()
+    $lowerFolder = if ($folder) { $folder.ToLower() } else { "" }
+    if ($lowerName -match "ansi" -or $lowerFolder -match "ansi") { return "ANSI" }
+    if ($lowerName -match "bijoy") { return "ANSI" }
+    if ($lowerName -match "\bmj\b" -or $lowerName -match "omj") { return "ANSI" }
+    return "Unicode"
+}
+
+# Root-level fonts
+Get-ChildItem $fontsDir -File | Where-Object { $_.Extension -match '\.(ttf|otf|woff|woff2)$' } | ForEach-Object {
     $name = [IO.Path]::GetFileNameWithoutExtension($_.Name)
     $fonts += [PSCustomObject]@{
-        id = Make-Id $name; name = $name; file = $_.Name
-        format = $_.Extension.TrimStart('.').ToUpper()
+        id = Make-UniqueId $name $seenIds; name = $name
+        file = "fonts/$($_.Name)"; format = $_.Extension.TrimStart('.').ToUpper()
         size = Format-Size $_.Length; sizeBytes = $_.Length
-        category = "Bangla"; license = "Unknown"; folder = $null
+        category = "Bangla"; license = "Unknown"
+        encoding = Detect-Encoding $name $null; folder = $null
     }
 }
 
-Get-ChildItem -Path $fontsDir -Directory | Sort-Object Name | ForEach-Object {
-    $dir = $_
-    Get-ChildItem -Path $dir.FullName -File -Recurse | Where-Object { $_.Extension -match '\.(ttf|otf)$' } | Sort-Object Name | ForEach-Object {
+# Subdirectory fonts
+Get-ChildItem $fontsDir -Directory | ForEach-Object {
+    $sub = $_
+    Get-ChildItem $sub.FullName -File -Recurse | Where-Object { $_.Extension -match '\.(ttf|otf|woff|woff2)$' } | ForEach-Object {
         $name = [IO.Path]::GetFileNameWithoutExtension($_.Name)
-        $rel = $_.FullName.Substring((Resolve-Path $fontsDir).Path.Length + 1).Replace('\','/')
+        $rel = "fonts/" + $_.FullName.Substring($fontsDir.Length + 1).Replace('\','/')
         $fonts += [PSCustomObject]@{
-            id = Make-Id $name; name = $name; file = $rel
-            format = $_.Extension.TrimStart('.').ToUpper()
+            id = Make-UniqueId $name $seenIds; name = $name
+            file = $rel; format = $_.Extension.TrimStart('.').ToUpper()
             size = Format-Size $_.Length; sizeBytes = $_.Length
-            category = "Bangla"; license = "Unknown"; folder = $dir.Name
+            category = "Bangla"; license = "Unknown"
+            encoding = Detect-Encoding $name $sub.Name; folder = $sub.Name
         }
     }
 }
 
-$fonts | ConvertTo-Json -Depth 5 | Set-Content fonts.json -Encoding UTF8
+$fonts | ConvertTo-Json -Depth 5 | Set-Content "$rootDir\fonts.json" -Encoding UTF8
 Write-Host "Generated $($fonts.Count) fonts"
 ```
 
 ---
 
-## 📦 How Bulk ZIP Download Works
+## 📦 Bulk ZIP Download কীভাবে কাজ করে
 
-1. User **selects** multiple fonts via checkboxes (or "Select All").
-2. User clicks **"নির্বাচিত ডাউনলোড করুন"** in the sticky bar.
-3. The app **fetches** each selected font file directly from the server.
-4. Files are **zipped in-browser** using [JSZip](https://stuk.github.io/jszip/).
-5. A single `Bangla-Fonts.zip` file is downloaded automatically.
+1. ব্যবহারকারী চেকবক্স দিয়ে ফন্ট সিলেক্ট করেন (অথবা "সব নির্বাচন")।
+2. Sticky bar থেকে **"নির্বাচিত ডাউনলোড করুন"** ক্লিক করেন।
+3. প্রতিটি ফন্ট ফাইল সরাসরি সার্ভার থেকে fetch করা হয়।
+4. ব্রাউজারেই [JSZip](https://stuk.github.io/jszip/) দিয়ে ZIP তৈরি হয়।
+5. `Bangla-Fonts.zip` ফাইল স্বয়ংক্রিয়ভাবে ডাউনলোড শুরু হয়।
 
-No server-side processing is needed. The ZIP is generated entirely in the browser.
-
-> **Performance note:** Fetching many large font files simultaneously can be slow on a slow connection. The progress bar shows real-time status.
-
----
-
-## 🖋️ Font Licensing Considerations
-
-> ⚠️ **Important:** This collection aggregates fonts from various authors and sources. **Licenses vary per font.**
-
-Before using any font commercially or redistributing it:
-
-1. Check the font's original source and license file.
-2. Common licenses include:
-   - **OFL (SIL Open Font License)** — free for personal and commercial use, modification allowed.
-   - **Freeware** — free for personal use only.
-   - **Unknown** — verify before commercial use.
-3. Do **not** assume all fonts are free for commercial redistribution.
-
-The `license` field in `fonts.json` is a best-effort indicator — always verify from the original source.
+কোনো server-side processing দরকার নেই।
 
 ---
 
 ## 🛠️ Technology
 
-| Tech             | Purpose                              |
-|------------------|--------------------------------------|
-| HTML5            | Semantic markup                      |
-| CSS3             | Variables, grid, animations          |
-| Vanilla JS ES6+  | App logic, lazy loading, search      |
-| JSZip (CDN)      | In-browser ZIP generation            |
-| IntersectionObserver API | Lazy font loading             |
-| FontFace API     | Programmatic font loading + detection|
+| Tech                     | Purpose                                      |
+|--------------------------|----------------------------------------------|
+| HTML5                    | Semantic markup                              |
+| CSS3                     | Variables, grid, dark mode, animations       |
+| Vanilla JS ES6+          | App logic, lazy loading, search, filter      |
+| JSZip (CDN)              | In-browser ZIP generation                    |
+| IntersectionObserver API | Lazy font loading                            |
+| FontFace API             | Programmatic font loading                    |
 
 ---
 
 ## 📄 License
 
 The **website code** (HTML, CSS, JS) is released under the **MIT License**.  
-The **font files** belong to their respective authors — see individual font sources for licensing.
+The **font files** belong to their respective authors — licensing varies per font.
 
 ---
 
-*Built with ❤️ for the Bangla-speaking community.*
+*তৈরি করেছে [Royal Technologies](https://www.royaltechbd.com/) — বাংলাভাষী কমিউনিটির জন্য ❤️*

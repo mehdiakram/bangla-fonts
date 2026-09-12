@@ -150,6 +150,7 @@ async function loadFonts() {
         sizeBytes:f.sizeBytes || 0,
         category: f.category || 'Bangla',
         license:  f.license  || 'Unknown',
+        encoding: f.encoding || 'Unicode',
         folder:   f.folder   || null,
       }));
 
@@ -163,13 +164,17 @@ async function loadFonts() {
   }
 }
 
+function toBanglaNumber(n) {
+  return String(n).replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]);
+}
+
 /* ── Update hero statistics ────────────────────────────────── */
 function updateStats() {
   const total = state.allFonts.length;
   const ttf   = state.allFonts.filter(f => f.format === 'TTF').length;
   const otf   = state.allFonts.filter(f => f.format === 'OTF').length;
 
-  dom.heroCount.textContent = total;
+  dom.heroCount.textContent = toBanglaNumber(total);
   animateCounter(dom.statTotal, total);
   animateCounter(dom.statTTF, ttf);
   animateCounter(dom.statOTF, otf);
@@ -190,20 +195,17 @@ function animateCounter(el, target) {
    ══════════════════════════════════════════════════════════════ */
 function filterFonts(fonts) {
   const q = state.searchQuery.toLowerCase().trim();
-  const formatFilter = state.activeFormat;
+  const formatFilter   = state.activeFormat;
   const encodingFilter = state.activeEncoding;
 
   return fonts.filter(font => {
-    // Format filter (WOFF includes both WOFF and WOFF2)
-    if (formatFilter !== 'all') {
-      if (formatFilter === 'WOFF' && !font.format.startsWith('WOFF')) return false;
-      if (formatFilter !== 'WOFF' && font.format !== formatFilter) return false;
-    }
-    
-    // Encoding filter
+    // Encoding filter — completely independent from format
     if (encodingFilter !== 'all' && font.encoding !== encodingFilter) return false;
 
-    // Search
+    // Format filter — exact match (WOFF and WOFF2 are distinct)
+    if (formatFilter !== 'all' && font.format !== formatFilter) return false;
+
+    // Search — match name, id, category, format, encoding
     if (q) {
       const haystack = [font.name, font.id, font.category, font.format, font.encoding]
         .join(' ').toLowerCase();
@@ -299,7 +301,7 @@ function createFontCard(font) {
         <div class="card-name" title="${escapeHtml(font.name)}">${escapeHtml(font.name)}</div>
         <div class="card-badges">
           <span class="badge badge-format">${font.format}</span>
-          <span class="badge badge-encoding" style="background-color: var(--primary-color); color: white;">${font.encoding || 'Unicode'}</span>
+          <span class="badge badge-encoding-${(font.encoding || 'unicode').toLowerCase()}">${font.encoding || 'Unicode'}</span>
           <span class="badge badge-size">${font.size}</span>
         </div>
       </div>
